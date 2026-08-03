@@ -1,5 +1,6 @@
 {
-  "buildCommand": "",
+  "framework": null,
+  "buildCommand": "echo static",
   "outputDirectory": ".",
   "rewrites": [
     { "source": "/", "destination": "/_/index.html" },
