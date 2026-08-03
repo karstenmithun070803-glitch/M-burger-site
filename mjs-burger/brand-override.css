@@ -1,0 +1,483 @@
+/* MJ's Burger Joint — Brand Override
+   Overrides Webflow CSS custom properties from pizza-amici.webflow.shared.css
+   Load AFTER the Webflow stylesheet, BEFORE page JS */
+
+/* @import removed — Google Fonts already loaded by WebFont.js in <head> */
+
+:root {
+  /* ── Colors ── */
+  --_colors---swatch--gold: #D44A2A;       /* Ember (was #e3af04 pizza gold) */
+  --_colors---swatch--navy: #1B2A4E;       /* Ink Blue (was #0f2c56) */
+  --_colors---swatch--off-white: #F1ECDE;  /* Bone Cream (was #f2ede9) */
+  --_colors---swatch--blue: #F7F3EB;       /* Light Cream (was #c0deee baby blue) */
+  --_colors---swatch--dough: #F1ECDE;      /* Bone Cream (was #ece6e1) */
+  --_colors---swatch--green: #D44A2A;      /* Ember (was #128643 Italian green) */
+  --_colors---swatch--beige: #E8E0D0;      /* Warm Cream (was #eae1da) */
+  --_colors---swatch--red: #D44A2A;        /* Ember (was #c72531) */
+  --_colors---swatch--brown: #0F0F0F;      /* Ink Black (was #4f3c2c) */
+  --_colors---swatch--dark-brown: #0F0F0F; /* Ink Black (was #2f241a) */
+  --_colors---swatch--white: #FFFFFF;
+
+  /* ── Fonts ── */
+  --_fonts---fonts--heading: 'Space Grotesk', sans-serif;
+  --_fonts---fonts--paragraph: 'Courier Prime', monospace;
+  --_fonts---fonts--alternative: 'Newsreader', 'Times New Roman', serif;
+  --_fonts---fonts--handwritten: 'Caveat', cursive;
+  --_fonts---fonts--button: 'Space Grotesk', sans-serif;
+
+  /* ── Font weights (keep Webflow system intact) ── */
+  --_fonts---font-weight--bold: 700;
+  --_fonts---font-weight--semi-bold: 600;
+  --_fonts---font-weight--medium: 500;
+  --_fonts---font-weight--normal: 400;
+
+  /* ── Theme aliases (these reference the swatches above) ── */
+  --_theme---background: var(--_colors---swatch--off-white);
+  --_theme---body-text: var(--_colors---swatch--navy);
+  --_theme---border: var(--_colors---swatch--navy);
+  --_theme---heading: var(--_colors---swatch--navy);
+  --_theme---cursor-select-bg: var(--_colors---swatch--gold);
+  --_theme---cursor-select-text: var(--_colors---swatch--off-white);
+}
+
+/* ── Inline hex overrides ──
+   Webflow sometimes bakes hex values into inline styles.
+   These catch the most common ones via attribute selectors. */
+
+[style*="#0F2C56"], [style*="#0f2c56"] {
+  color: #1B2A4E !important;
+}
+
+[style*="background-color: #0F2C56"], [style*="background-color: #0f2c56"],
+[style*="background-color:#0F2C56"], [style*="background-color:#0f2c56"] {
+  background-color: #1B2A4E !important;
+}
+
+[style*="#FFFCF0"], [style*="#fffcf0"] {
+  color: #F1ECDE !important;
+}
+
+[style*="background-color: #FFFCF0"], [style*="background-color: #fffcf0"],
+[style*="background-color:#FFFCF0"], [style*="background-color:#fffcf0"] {
+  background-color: #F1ECDE !important;
+}
+
+/* ── Heading font override ──
+   Ensure Space Grotesk renders even where Webflow
+   hardcodes font-family on elements */
+.heading-xxl, .heading-xl, .heading-l, .heading-m, .heading-s, .heading-xs,
+h1, h2, h3, h4, h5, h6,
+[class*="heading"] {
+  font-family: 'Space Grotesk', sans-serif !important;
+}
+
+/* ── Button font override ── */
+.button, .nav-link, [class*="button"],
+a[class*="btn"], .w-button {
+  font-family: 'Space Grotesk', sans-serif !important;
+}
+
+/* ── Paragraph / body font override ── */
+.paragraph, p, .text-block, [class*="paragraph"],
+.w-richtext p, body {
+  font-family: 'Courier Prime', monospace !important;
+}
+
+/* ── Alternative / serif font override ── */
+.text-alternative, [class*="alternative"], .w-richtext blockquote,
+[class*="serif"], [class*="italic"] {
+  font-family: 'Newsreader', 'Times New Roman', serif !important;
+}
+
+/* ── Handwritten font override ── */
+[class*="handwritten"], [class*="script"] {
+  font-family: 'Caveat', cursive !important;
+}
+
+/* ── Selection color ── */
+::selection {
+  background: #D44A2A;
+  color: #F1ECDE;
+}
+
+/* ── Scrollbar tint (webkit) ── */
+::-webkit-scrollbar-thumb {
+  background: #1B2A4E;
+}
+::-webkit-scrollbar-track {
+  background: #F1ECDE;
+}
+
+/* ── Dropdown fix — support JS-controlled open state ── */
+[data-dropdown-toggle="open"] + .nav-dropdown {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* ══════════════════════════════════════════════════
+   TYPOGRAPHY & LAYOUT FIXES
+   Space Grotesk is wider than the original font,
+   causing text to overflow containers ("bleeding").
+   ══════════════════════════════════════════════════ */
+
+/* ── Global text wrap safety ── */
+.card-content,
+.card-content.is-step,
+.card-content.is-hero-body,
+.card-content.is-burger-tenders,
+[class*="card-content"] {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+/* ── Heading size scaling ──
+   Space Grotesk runs ~5-8% wider than the original;
+   scale down large headings to prevent overflow */
+.heading-xxl {
+  font-size: clamp(2.5rem, 5vw, 4.5rem) !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.heading-xl {
+  font-size: clamp(2rem, 4vw, 3.5rem) !important;
+  line-height: 1.1 !important;
+  letter-spacing: -0.015em !important;
+}
+
+.heading-l {
+  font-size: clamp(1.5rem, 3vw, 2.5rem) !important;
+  line-height: 1.15 !important;
+}
+
+/* ── Truck card titles ── */
+.truck_titel,
+[class*="truck_titel"],
+.food.truck-card_title,
+h3.food.truck-card_title {
+  font-size: clamp(1.5rem, 3vw, 2.25rem) !important;
+  line-height: 1.1 !important;
+  overflow: visible !important;
+}
+
+/* ── Truck slider layout — fix orange bar overlapping truck names ── */
+.trucks_button {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.slider_pagination.is-food {
+  margin-top: 0 !important;
+}
+
+.slider_component {
+  overflow: hidden !important;
+}
+
+/* ── Truck slider section — "Book a truck" heading + truck names ── */
+.slider_component .heading-xxl,
+.slider_component .heading-xl,
+.slider_component h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem) !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.03em !important;
+}
+
+.slider_text {
+  overflow: visible !important;
+}
+
+.slider_burger {
+  overflow: visible !important;
+}
+
+/* Truck card title inside slider — the big truck names like "The Lil' Smash" */
+.truck-card_title,
+.food.truck-card_title,
+h3.truck-card_title,
+.slider_cms_item h3 {
+  font-size: clamp(1.4rem, 3vw, 2.2rem) !important;
+  line-height: 1.1 !important;
+  letter-spacing: -0.03em !important;
+  word-break: break-word !important;
+  overflow: visible !important;
+}
+
+/* The "Bringing the heat to you" tagline in the slider */
+.slider_component .text-style-handwritten,
+.slider_component [class*="handwritten"] {
+  font-size: clamp(1.2rem, 2.5vw, 2rem) !important;
+  white-space: nowrap !important;
+}
+
+/* Truck card detail numbers and labels */
+.truck-card_number {
+  font-size: clamp(1.5rem, 3vw, 2.5rem) !important;
+}
+
+.truck-card_details {
+  overflow: visible !important;
+}
+
+/* The overall truck slider items */
+.slider_cms_item {
+  overflow: visible !important;
+}
+
+.truck-card_inner {
+  overflow: visible !important;
+}
+
+/* ── Truck card media gallery — hidden in slider context ── */
+.slider_component .food.truck-card_media,
+.slider_component .truck-card_media {
+  display: none !important;
+}
+
+/* "Book a truck" nav button — prevent overflow */
+.nav-button span {
+  white-space: nowrap !important;
+}
+
+/* ── Step card titles ── */
+.step-card-title {
+  font-size: clamp(1rem, 2vw, 1.5rem) !important;
+  line-height: 1.2 !important;
+}
+
+/* ── Review cards — prevent text overflow ── */
+.review-card,
+[class*="review"] .paragraph,
+[class*="review"] p {
+  overflow: hidden !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+/* ── Ribbon / award banner — tighten text ── */
+.ribbon-title {
+  font-size: clamp(1.5rem, 4vw, 3rem) !important;
+  line-height: 1.1 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* ── Nav link spacing ──
+   Tighten nav to fit more items */
+.nav-link {
+  font-size: 0.9rem !important;
+  letter-spacing: 0 !important;
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+}
+
+/* ── Paragraph body text ──
+   Courier Prime is monospaced and wider than proportional fonts.
+   Reduce size slightly for readability in card contexts. */
+.card-content p,
+.card-content .paragraph,
+.card-content .paragraph-s {
+  font-size: 0.85rem !important;
+  line-height: 1.5 !important;
+}
+
+/* ── Hero body text ── */
+.hero-body p,
+.hero-body .paragraph,
+[class*="hero"] .paragraph-m {
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+}
+
+/* ── Footer tightening ── */
+.footer .paragraph-s,
+footer .paragraph-s,
+[class*="footer"] .paragraph-s {
+  font-size: 0.8rem !important;
+  line-height: 1.4 !important;
+}
+
+/* ══════════════════════════════════════════════════
+   DELAYED VISIBILITY FALLBACK
+   Scoped behind .mjs-content-ready (added by JS after 6s)
+   so IX2 and GSAP entrance animations can play first.
+   After 6s, any still-hidden elements get force-shown.
+   ══════════════════════════════════════════════════ */
+
+/* ── Benefits section — layout fix (always active) ── */
+.section_benefits .card-content {
+  overflow: visible !important;
+}
+
+/* ── Work-at background images (always active) ── */
+.section_work-at img.work-at_bg,
+.section_work-at img[src^="https://cdn.prod.website-files.com"] {
+  opacity: 0.4 !important;
+  filter: grayscale(0.5) !important;
+}
+
+/* ── Delayed visibility — only activates after JS adds .mjs-content-ready ── */
+html.mjs-content-ready .opacity-0 {
+  opacity: 1 !important;
+}
+
+html.mjs-content-ready [data-animate="card"],
+html.mjs-content-ready .section_steps .steps-title,
+html.mjs-content-ready .section_steps .step-card-title,
+html.mjs-content-ready .section_steps .card-content,
+html.mjs-content-ready .section_steps .card-content.is-step,
+html.mjs-content-ready .section_steps .card.is-step-circle,
+html.mjs-content-ready .section_steps p,
+html.mjs-content-ready .section_steps h2,
+html.mjs-content-ready .section_steps h3,
+html.mjs-content-ready .section_steps [class*="heading"],
+html.mjs-content-ready .section_benefits .card-content,
+html.mjs-content-ready .section_benefits p,
+html.mjs-content-ready .section_benefits h2,
+html.mjs-content-ready .section_benefits h3,
+html.mjs-content-ready .section_benefits [class*="heading"],
+html.mjs-content-ready .section_burger-tenders .card-content,
+html.mjs-content-ready .section_burger-tenders p,
+html.mjs-content-ready .section_burger-tenders h2,
+html.mjs-content-ready .section_burger-tenders [class*="heading"],
+html.mjs-content-ready .section_work-at *,
+html.mjs-content-ready .section_hero-card,
+html.mjs-content-ready .section_hero-card .card-content,
+html.mjs-content-ready .section_hero-card h2,
+html.mjs-content-ready .section_hero-card h3,
+html.mjs-content-ready .section_hero-card p,
+html.mjs-content-ready .section_hero-card [class*="heading"],
+html.mjs-content-ready .section_hero-card [class*="paragraph"],
+html.mjs-content-ready .section_hero-card img,
+html.mjs-content-ready .section_card-bg,
+html.mjs-content-ready .section_card-bg .card-content,
+html.mjs-content-ready .section_card-bg h2,
+html.mjs-content-ready .section_card-bg h3,
+html.mjs-content-ready .section_card-bg p,
+html.mjs-content-ready .section_card-bg [class*="heading"],
+html.mjs-content-ready .section_card-bg [class*="paragraph"],
+html.mjs-content-ready .section_menu,
+html.mjs-content-ready .section_menu h2,
+html.mjs-content-ready .section_menu h3,
+html.mjs-content-ready .section_menu p,
+html.mjs-content-ready .section_menu .card-content,
+html.mjs-content-ready .section_menu [class*="heading"],
+html.mjs-content-ready .section_menu [class*="paragraph"],
+html.mjs-content-ready .section_menu img,
+html.mjs-content-ready .section_text-media,
+html.mjs-content-ready .section_text-media h2,
+html.mjs-content-ready .section_text-media h3,
+html.mjs-content-ready .section_text-media p,
+html.mjs-content-ready .section_text-media .card-content,
+html.mjs-content-ready .section_text-media [class*="heading"],
+html.mjs-content-ready .section_text-media [class*="paragraph"],
+html.mjs-content-ready .section_text-media img,
+html.mjs-content-ready .section_text-media .photo-card,
+html.mjs-content-ready .section_text-media .photo-card_inner,
+html.mjs-content-ready .section_usps,
+html.mjs-content-ready .section_usps h2,
+html.mjs-content-ready .section_usps h3,
+html.mjs-content-ready .section_usps p,
+html.mjs-content-ready .section_usps [class*="heading"],
+html.mjs-content-ready .section_usps [class*="paragraph"],
+html.mjs-content-ready .section_usps img,
+html.mjs-content-ready .section_media,
+html.mjs-content-ready .section_media img,
+html.mjs-content-ready .section_media .photo-card,
+html.mjs-content-ready .section_media .photo-card_inner,
+html.mjs-content-ready .section_trucks,
+html.mjs-content-ready .section_trucks h2,
+html.mjs-content-ready .section_trucks h3,
+html.mjs-content-ready .section_trucks p,
+html.mjs-content-ready .section_trucks .card-content,
+html.mjs-content-ready .section_trucks [class*="heading"],
+html.mjs-content-ready .section_trucks img,
+html.mjs-content-ready .section_reviews,
+html.mjs-content-ready .section_reviews h2,
+html.mjs-content-ready .section_reviews h3,
+html.mjs-content-ready .section_reviews p,
+html.mjs-content-ready .section_reviews [class*="heading"],
+html.mjs-content-ready .section_reviews .review-card,
+html.mjs-content-ready .section_marquee,
+html.mjs-content-ready .section_marquee img,
+html.mjs-content-ready .section_marquee [class*="marquee"],
+html.mjs-content-ready .section_ribbons,
+html.mjs-content-ready .section_ribbons h2,
+html.mjs-content-ready .section_ribbons [class*="heading"],
+html.mjs-content-ready .footer-logo,
+html.mjs-content-ready .footer-card .photo-card {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* ── Hero video — show poster, hide broken video ── */
+.bunny-bg__video {
+  display: none !important;
+}
+.bunny-bg__placeholder {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.bunny-bg__loading {
+  display: none !important;
+}
+
+/* ── Broken images — hide alt text gracefully ── */
+img[alt]:not([src=""]):not([src]) {
+  min-height: 0 !important;
+}
+
+img:not([src]),
+img[src=""],
+img[src^="https://cdn.prod.website-files.com"] {
+  opacity: 0.15 !important;
+  filter: grayscale(1) !important;
+}
+
+/* ── Subpage card logo — constrain replaced PNG ── */
+.card-content-logo {
+  max-width: 200px !important;
+  max-height: 80px !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+/* ── Preloader override — auto-dismiss after 3s ── */
+.loader {
+  animation: fadeOutLoader 0.5s ease 3s forwards !important;
+}
+@keyframes fadeOutLoader {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* ── Steps section: .steps-burger needs the same positioning as .steps-pizza ── */
+.steps-burger {
+  z-index: 0;
+  aspect-ratio: 1;
+  width: 30vw;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 65%);
+}
+
+/* ── Steps section: theme background must be explicit (Webflow only sets it on body) ── */
+.section_steps {
+  background-color: var(--_theme---background);
+}
+
+/* ── GPU compositing for Odyn motion system ── */
+[data-momentum-hover-target],
+.photo-card_inner,
+.marquee-container,
+.draggable-marquee__collection {
+  will-change: transform;
+}
+

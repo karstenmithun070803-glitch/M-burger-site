@@ -1,0 +1,23 @@
+.DS_Store
+*.pyc
+__pycache__/
+.env
+.claude/
+reports/
+node_modules/
+
+# Tool archives and source images
+NT_Site_Mirror/
+NT_Site_Mirror.zip
+image assets/
+mirror/
+the-joint/
+
+# Python server files (not needed for Vercel)
+mjs-burger/serve-local.py
+mjs-burger/serve-contract.json
+mjs-burger/mirror-manifest.json
+mjs-burger/_ntsm/
+
+# Source PNGs (site uses .webp only)
+mjs-burger/images/*.png
